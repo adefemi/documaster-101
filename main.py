@@ -77,6 +77,10 @@ async def inquire(data: InquiryData):
             raise HTTPException(status_code=500, detail=f"Error processing file, {str(e)}")
         
     try:
+        # if length of full_text greater than 4097 characters, cut it to 4096 characters
+        if len(full_text) > 4096:
+            full_text = full_text[:4096]
+
         answer = ans_question_from_text(full_text, question)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error answering question, {str(e)}")
