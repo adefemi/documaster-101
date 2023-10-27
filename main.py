@@ -1,4 +1,5 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 
@@ -6,6 +7,14 @@ from mechanics.storage import list_files_in_folder, get_file_in_folder, upload_f
 from mechanics.processor import extract_text_from_pdf, ans_question_from_text
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/upload")
 async def upload(file: UploadFile = File(...)):
@@ -32,7 +41,7 @@ async def list_files():
 class InquiryData(BaseModel):
     question: str
     doc_ids: Optional[List[str]] = None
-    
+
 @app.post("/inquire")
 async def inquire(data: InquiryData):
     question = data.question
