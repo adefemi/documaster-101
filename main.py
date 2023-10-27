@@ -66,8 +66,6 @@ async def inquire(data: InquiryData):
             
     if not files:
         raise HTTPException(status_code=400, detail="You need to upload at least one PDF file")
-    
-    return {"files": files}
             
     full_text = ""
     for file in files:

@@ -55,16 +55,12 @@ class TestListFilesInFolder:
 class TestGetFileInFolder:
     def test_get_file_in_folder(self, mocker):
         # Mock the s3.head_object function to return a mock response
-        mock_response = {
-            "Metadata": {
-                "mock-key": "mock-value"
-            }
-        }
+        mock_response = "mock-response"
         mocker.patch('mechanics.storage.s3.head_object', return_value=mock_response)
 
         # call the function 
         result = get_file_in_folder("mock-file")
-        assert f"s3.amazonaws.com/pdf_files/mock-file.pdf" in result["file_url"]
+        assert result == "pdf_files/mock-file.pdf"
 
     def test_get_file_in_folder_error_handling(self, mocker):
         # Mock the s3.head_object function to raise an exception

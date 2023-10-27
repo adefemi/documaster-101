@@ -32,9 +32,8 @@ def list_files_in_folder():
 def get_file_in_folder(file_name):
     try:
         file_key = f'{storage_folder}/{file_name}.pdf'
-        file_url = f'https://{bucket_name}.s3.amazonaws.com/{file_key}'
-        response = s3.head_object(Bucket='your-bucket-name', Key=file_key)
-        return {"file_url": file_url, "metadata": response['Metadata']}
+        s3.head_object(Bucket=bucket_name, Key=file_key)
+        return file_key
     except Exception:
         raise Exception("File not found")
     
