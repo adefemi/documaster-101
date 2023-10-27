@@ -23,6 +23,16 @@ class InquiryData(BaseModel):
     question: str
     doc_ids: Optional[List[str]] = None
 
+@app.get("/list")
+async def list_files():
+    try:
+        files = list_files_in_folder()
+        # remove the storage folder name from the file name
+        files = [file.split("/")[-1] for file in files]
+    except Exception as _:
+        raise HTTPException(status_code=500, detail="Error getting files")
+    return {"files": files}
+
 @app.post("/inquire")
 async def inquire(data: InquiryData):
     question = data.question
