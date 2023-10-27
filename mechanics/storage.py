@@ -35,7 +35,7 @@ def get_file_in_folder(file_name):
         file_url = f'https://{bucket_name}.s3.amazonaws.com/{file_key}'
         response = s3.head_object(Bucket='your-bucket-name', Key=file_key)
         return {"file_url": file_url, "metadata": response['Metadata']}
-    except s3.exceptions.NoSuchKey:
+    except Exception:
         raise Exception("File not found")
     
 def download_file(file_key):

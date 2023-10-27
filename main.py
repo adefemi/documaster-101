@@ -19,10 +19,6 @@ async def upload(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail="Error uploading file")
     return {"url": upload_result}
 
-class InquiryData(BaseModel):
-    question: str
-    doc_ids: Optional[List[str]] = None
-
 @app.get("/list")
 async def list_files():
     try:
@@ -33,6 +29,10 @@ async def list_files():
         raise HTTPException(status_code=500, detail="Error getting files")
     return {"files": files}
 
+class InquiryData(BaseModel):
+    question: str
+    doc_ids: Optional[List[str]] = None
+    
 @app.post("/inquire")
 async def inquire(data: InquiryData):
     question = data.question

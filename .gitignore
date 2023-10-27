@@ -13,5 +13,6 @@ lib64
 .idea
 .idea/*
 __pycache__/
+.pytest_cache/
 
 .env
