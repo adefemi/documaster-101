@@ -61,3 +61,10 @@ Once the app is running, test [http://localhost:9001](http://localhost:9001) on 
         - `question`: The question you want answered.
         - `doc_ids`: (Optional) A list of document IDs to use for answering the question. *NB* this just the docs name, the extension is not needed.
 
+### Testing
+
+The project is setup with some basic unit and integration tests. To run the test, ensure you're in the ROOT directory, then execute the following command:
+
+```
+pytest
+```
